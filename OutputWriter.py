@@ -8,9 +8,20 @@ class OutputWriter:
 
     def write_output(self, key, value):
         try:
-            message = {"key": key, "value": value}
-            self.producer.produce(self.topic, key=key, value=json.dumps(value))
+            diarized_string = []
+            for segment in value["segments"]:
+                # print(f"Cümle: {segment['text']} (Konuşmacı: {segment['speaker']})")
+                speaker = segment["speaker"]
+                text = segment["text"]
+                diarized_string.append(f"- {speaker}: {text}\n")
+            diarized_message = ''.join(diarized_string)
+            print(f"Diarized message:\n{diarized_message}")
+
+            # Kafka'ya mesaj gönder
+            message = {"key": key, "value": diarized_message}
+            self.producer.produce(self.topic, key=key, value=diarized_message.encode('utf-8'))
             self.producer.flush()
+            
             print(f"Message sent to Kafka topic '{self.topic}': {message}")
         except Exception as e:
             print(f"Failed to send message to Kafka: {e}")
