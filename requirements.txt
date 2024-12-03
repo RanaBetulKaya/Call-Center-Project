@@ -1,7 +1,10 @@
 torch==2.0.0
 torchaudio==2.0.1
 torchvision==0.15.1
-whisperx
+whisperx==3.1.5
+faster-whisper==1.0.1
 confluent-kafka
 ray
 numpy<2
+ffmpeg==1.4
+ffmpeg-python==0.2.0
