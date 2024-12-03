@@ -1,7 +1,7 @@
 FROM python:3.10
- 
+
 # Install necessary system libraries
-RUN apt-get update && apt-get install -y libsndfile1
+RUN apt-get update && apt-get install -y libsndfile1 ffmpeg
 
 # Set up the working directory
 WORKDIR /app
