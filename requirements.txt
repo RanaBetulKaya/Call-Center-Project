@@ -1,0 +1,7 @@
+torch==2.0.0
+torchaudio==2.0.1
+torchvision==0.15.1
+whisperx
+confluent-kafka
+ray
+numpy<2
