@@ -1,6 +1,4 @@
 # Call-Center-Project
-<<<<<<< HEAD
-=======
 
 <h1>Steps</h1>
 
@@ -15,4 +13,3 @@
 
 <h4>Submit the jobs to cluster</h4>
 <p> ray job submit --working-dir . -- python Main.py  </p>
->>>>>>> 08add7b3 (new  version)
