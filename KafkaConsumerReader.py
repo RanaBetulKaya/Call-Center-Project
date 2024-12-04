@@ -21,9 +21,14 @@ class KafkaConsumerReader:
                 if msg.error():
                     print(f"Consumer error: {msg.error()}")
                     continue
-                message = json.loads(msg.value().decode('utf-8'))
+                message = json.loads(msg.value())
                 print(f"Received message: {message}")
         except KeyboardInterrupt:
             print("Stopped by user")
-        finally:
-            self.consumer.close()
+
+def main():
+    consumer = KafkaConsumerReader()
+    consumer.read_messages()
+    
+if __name__ =="__main__":
+    main()

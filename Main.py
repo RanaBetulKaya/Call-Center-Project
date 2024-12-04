@@ -2,7 +2,7 @@ import os
 import ray
 from AudioProcessor import AudioProcessor
 from OutputWriter import OutputWriter
-
+from KafkaConsumerReader import KafkaConsumerReader
 def get_audio_files(directory):
     print("buradayım")
     return [os.path.join(directory, f) for f in os.listdir(directory) if f.endswith('.wav')]
@@ -36,10 +36,12 @@ def main():
         done_id, futures = ray.wait(futures)
         # file_name, transcription = os.path.basename(ray.get(done_id[0])), ray.get(done_id[0])
         # output_writer.write_output(file_name, transcription)
+        consumer = KafkaConsumerReader()
         outputWriter = OutputWriter()
-        print(ray.get(done_id[0])[0])
-        print(ray.get(done_id[0])[1])
         outputWriter.write_output(ray.get(done_id[0])[0], ray.get(done_id[0])[1])
+        consumer.read_messages()
 
+    
+    
 if __name__ == "__main__":
     main()

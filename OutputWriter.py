@@ -6,10 +6,10 @@ class OutputWriter:
         self.producer = Producer({'bootstrap.servers': bootstrap_servers})
         self.topic = topic
 
-    def write_output(self, key, value):
+    def write_output(self, key, data):
         try:
             diarized_string = []
-            for segment in value["segments"]:
+            for segment in data["segments"]:
                 # print(f"Cümle: {segment['text']} (Konuşmacı: {segment['speaker']})")
                 speaker = segment["speaker"]
                 text = segment["text"]
@@ -19,7 +19,7 @@ class OutputWriter:
 
             # Kafka'ya mesaj gönder
             message = {"key": key, "value": diarized_message}
-            self.producer.produce(self.topic, key=key, value=diarized_message.encode('utf-8'))
+            self.producer.produce(self.topic, key=key, value=json.dumps(message))
             self.producer.flush()
             
             print(f"Message sent to Kafka topic '{self.topic}': {message}")
