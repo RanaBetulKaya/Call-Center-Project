@@ -4,6 +4,8 @@ services:
     image: confluentinc/cp-zookeeper:7.2.2
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
+    networks:
+      - kafka
 
   kafka:
     image: confluentinc/cp-kafka:7.2.2
@@ -12,15 +14,49 @@ services:
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+    volumes:
+      - .:/app
     depends_on:
       - zookeeper
+    healthcheck:
+      test: ["CMD", "kafka-broker-api-versions", "--bootstrap-server", "localhost:9092"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - kafka
 
   app:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.producer
     volumes:
       - ./data:/app/data
     depends_on:
+      kafka:
+        condition: service_healthy
+    environment:
+      - KAFKA_BROKER=kafka:9092
+    networks:
       - kafka
     command: python Main.py
+  
+  kafka-consumer:
+    build:
+      context: .
+      dockerfile: Dockerfile.consumer
+    volumes:
+      - ./data:/app/data
+    depends_on:
+      kafka:
+        condition: service_healthy
+    environment:
+      - KAFKA_BROKER=kafka:9092
+    networks:
+      - kafka
+    command: python KafkaConsumerReader.py
+
+networks:
+  kafka:

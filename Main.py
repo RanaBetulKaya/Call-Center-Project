@@ -36,10 +36,8 @@ def main():
         done_id, futures = ray.wait(futures)
         # file_name, transcription = os.path.basename(ray.get(done_id[0])), ray.get(done_id[0])
         # output_writer.write_output(file_name, transcription)
-        consumer = KafkaConsumerReader()
         outputWriter = OutputWriter()
         outputWriter.write_output(ray.get(done_id[0])[0], ray.get(done_id[0])[1])
-        consumer.read_messages()
 
     
     

@@ -1,5 +1,6 @@
 from confluent_kafka import Consumer
 import json
+import time
 
 class KafkaConsumerReader:
     def __init__(self, topic="transcribe_data", bootstrap_servers="kafka:9092", group_id="group1"):
@@ -27,8 +28,12 @@ class KafkaConsumerReader:
             print("Stopped by user")
 
 def main():
+    time.sleep(10) 
+    print("Consumer tanımlanıyor")
     consumer = KafkaConsumerReader()
+    print("Fonk çağırılıyor")
     consumer.read_messages()
     
 if __name__ =="__main__":
+    print("ife girdi")
     main()
