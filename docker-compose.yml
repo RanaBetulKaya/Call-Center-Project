@@ -1,14 +1,14 @@
 
 services:
   zookeeper:
-    image: confluentinc/cp-zookeeper:7.2.2
+    image: confluentinc/cp-zookeeper
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
     networks:
       - kafka
 
   kafka:
-    image: confluentinc/cp-kafka:7.2.2
+    image: confluentinc/cp-kafka
     environment:
       KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
@@ -16,8 +16,6 @@ services:
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
       KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
       KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
-    volumes:
-      - .:/app
     depends_on:
       - zookeeper
     healthcheck:
@@ -31,7 +29,7 @@ services:
   app:
     build:
       context: .
-      dockerfile: Dockerfile.producer
+      dockerfile: Dockerfile
     volumes:
       - ./data:/app/data
     depends_on:
@@ -42,21 +40,6 @@ services:
     networks:
       - kafka
     command: python Main.py
-  
-  kafka-consumer:
-    build:
-      context: .
-      dockerfile: Dockerfile.consumer
-    volumes:
-      - ./data:/app/data
-    depends_on:
-      kafka:
-        condition: service_healthy
-    environment:
-      - KAFKA_BROKER=kafka:9092
-    networks:
-      - kafka
-    command: python KafkaConsumerReader.py
 
 networks:
   kafka:
