@@ -1,7 +1,7 @@
+import threading
 from confluent_kafka import Consumer
 import json
-import time
-
+ 
 class KafkaConsumerReader:
     def __init__(self, topic="transcribe_data", bootstrap_servers="kafka:9092", group_id="group1"):
         self.consumer = Consumer({
@@ -11,7 +11,7 @@ class KafkaConsumerReader:
         })
         self.topic = topic
         self.consumer.subscribe([self.topic])
-
+ 
     def read_messages(self):
         print(f"Listening to Kafka topic '{self.topic}'...")
         try:
@@ -26,14 +26,8 @@ class KafkaConsumerReader:
                 print(f"Received message: {message}")
         except KeyboardInterrupt:
             print("Stopped by user")
-
-def main():
-    time.sleep(10) 
-    print("Consumer tanımlanıyor")
-    consumer = KafkaConsumerReader()
-    print("Fonk çağırılıyor")
-    consumer.read_messages()
-    
-if __name__ =="__main__":
-    print("ife girdi")
-    main()
+ 
+    def start(self):
+        consumer_thread = threading.Thread(target=self.read_messages)
+        consumer_thread.daemon = True  
+        consumer_thread.start()
