@@ -19,7 +19,7 @@ def process_audio_file(audio_file):
 def main():
     ray.init()
     print(ray.nodes())
-    audio_directory = "/app/data"
+    audio_directory = "/app/data_audio"
    
     audio_files = get_audio_files(audio_directory)
  
