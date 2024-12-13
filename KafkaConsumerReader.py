@@ -1,5 +1,7 @@
 import threading
 from confluent_kafka import Consumer
+from langchain_community.llms import Ollama
+from prompts import prompt
 import json
  
 class KafkaConsumerReader:
@@ -24,6 +26,9 @@ class KafkaConsumerReader:
                     continue
                 message = json.loads(msg.value())
                 print(f"Received message: {message}")
+                # predict = sent_to_llm(message)
+                # print(predict)
+                
         except KeyboardInterrupt:
             print("Stopped by user")
  
@@ -31,3 +36,9 @@ class KafkaConsumerReader:
         consumer_thread = threading.Thread(target=self.read_messages)
         consumer_thread.daemon = True  
         consumer_thread.start()
+
+def sent_to_llm(self, sample_text):
+    llm = Ollama(model="gemma2", base_url="http://ollama:11434")
+    full_prompt = f"{prompt}\nÖrnek: {sample_text}\nYanıt:"
+    result = llm.invoke(full_prompt)
+    print(result)
