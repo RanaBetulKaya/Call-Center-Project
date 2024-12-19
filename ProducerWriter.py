@@ -2,7 +2,7 @@ from confluent_kafka import Producer
 import json
 
 class ProducerWriter:
-    def __init__(self, topic="transcribe_data", bootstrap_servers="kafka:9092"):
+    def __init__(self, topic="transcribe_data", bootstrap_servers="localhost:9092"):
         self.producer = Producer({'bootstrap.servers': bootstrap_servers})
         self.topic = topic
 

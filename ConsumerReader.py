@@ -4,7 +4,7 @@ from LLM import llm_service
 import json
  
 class ConsumerReader:
-    def __init__(self, topic="transcribe_data", bootstrap_servers="kafka:9092", group_id="group1"):
+    def __init__(self, topic="transcribe_data", bootstrap_servers="localhost:9092", group_id="group1"):
         self.consumer = Consumer({
             'bootstrap.servers': bootstrap_servers,
             'group.id': group_id,
