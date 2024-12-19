@@ -1,15 +1,22 @@
 # Call-Center-Project
 
-<h1>Steps</h1>
+<h1>Adımlar</h1>
 
-<h4>Install the Ray</h4>
-<p> pip install -U "ray[default]" </p>
+<h4> 1.Adım </h4>
+<p> Groq API Key alarak .env dosyasına eklenmeli </p>
 
-<h4>Install WhisperX</h4>
-<p> Also you should install WhisperX. You can check this link: https://github.com/m-bain/whisperX </p>
+<h4> 2.Adım </h4>
+<p> requirements.txt dosyasındaki gereklilikleri indir. </p>
 
-<h4>Start the Ray Cluster</h4>
-<p> ray start --head </p>
+<h4> 3.Adım </h4>
+<p> ffmpeg modülünü system-wide olarak install et. </p>
 
-<h4>Submit the jobs to cluster</h4>
-<p> ray job submit --working-dir . -- python Main.py  </p>
+<h4> 4.Adım </h4>
+<p> docker compose up --build -d ile kafkayı ayağa kaldır </p>
+
+<h4> 5.Adım </h4>
+<p> python Main.py ile projeyi başlat </p>
+
+<h2> NOT </h2>
+<p> Audio2Text.py dosyasında zaten belirttim. Whisperx modelini cpu da çalıştırmak biraz uzun dürüyor. Sisteme göre değişiklik yapılabilir </p>
+

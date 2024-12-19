@@ -1,12 +1,9 @@
-torch==2.0.0
-torchaudio==2.0.1
-torchvision==0.15.1
+torch==2.2.1
+torchaudio==2.2.1
 whisperx==3.1.5
-faster-whisper==1.0.1
 confluent-kafka
-ray
+ray==2.37.0
 numpy<2
-ffmpeg==1.4
-ffmpeg-python==0.2.0
 langchain
-langchain_community
+langchain_groq
+python-dotenv
