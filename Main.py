@@ -1,7 +1,7 @@
 import ray
 from AudioProcessor import AudioProcessor
 from ProducerWriter import ProducerWriter
-from KafkaConsumerReader import KafkaConsumerReader
+from ConsumerReader import ConsumerReader
 import time
 import os
  
@@ -27,7 +27,7 @@ def main():
         print("Ses dosyası bulunamadı.")
         return
  
-    consumer = KafkaConsumerReader()
+    consumer = ConsumerReader()
     consumer.start()
  
     futures = [process_audio_file.remote(audio_file) for audio_file in audio_files]
