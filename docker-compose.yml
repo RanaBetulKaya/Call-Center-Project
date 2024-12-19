@@ -1,9 +1,10 @@
-
 services:
   zookeeper:
     image: confluentinc/cp-zookeeper
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
+    ports:
+      - 2181:2181
     networks:
       - kafka
 
@@ -12,10 +13,13 @@ services:
     environment:
       KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INSIDE:PLAINTEXT,OUTSIDE:PLAINTEXT
+      KAFKA_ADVERTISED_LISTENERS: INSIDE://kafka:29092,OUTSIDE://localhost:9092
+      KAFKA_LISTENERS: INSIDE://0.0.0.0:29092,OUTSIDE://0.0.0.0:9092
+      KAFKA_INTER_BROKER_LISTENER_NAME: INSIDE
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
-      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
-      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+    ports:
+      - 9092:9092
     depends_on:
       - zookeeper
     healthcheck:
@@ -25,21 +29,6 @@ services:
       retries: 5
     networks:
       - kafka
-
-  app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    volumes:
-      - ./data:/app/data
-    depends_on:
-      kafka:
-        condition: service_healthy
-    environment:
-      - KAFKA_BROKER=kafka:9092
-    networks:
-      - kafka
-    command: python Main.py
 
 networks:
   kafka:

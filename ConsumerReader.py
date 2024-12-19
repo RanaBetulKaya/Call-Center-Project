@@ -1,9 +1,10 @@
 import threading
 from confluent_kafka import Consumer
+from LLM import llm_service
 import json
  
-class KafkaConsumerReader:
-    def __init__(self, topic="transcribe_data", bootstrap_servers="kafka:9092", group_id="group1"):
+class ConsumerReader:
+    def __init__(self, topic="transcribe_data", bootstrap_servers="localhost:9092", group_id="group1"):
         self.consumer = Consumer({
             'bootstrap.servers': bootstrap_servers,
             'group.id': group_id,
@@ -23,7 +24,11 @@ class KafkaConsumerReader:
                     print(f"Consumer error: {msg.error()}")
                     continue
                 message = json.loads(msg.value())
-                print(f"Received message: {message}")
+                print(f"Received message")
+                
+                # Okunan mesaj llm servisine yollanıyor.
+                llm_service(message)
+                
         except KeyboardInterrupt:
             print("Stopped by user")
  

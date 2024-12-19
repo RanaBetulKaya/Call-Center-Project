@@ -8,3 +8,5 @@ ray
 numpy<2
 ffmpeg==1.4
 ffmpeg-python==0.2.0
+langchain
+langchain_community

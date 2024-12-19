@@ -4,7 +4,7 @@ import datetime
 import torch
 print(torch.backends.mps.is_available())
 
-class AudioProcessor:
+class Audio2Text:
     def __init__(self, audio_file, device="cpu", batch_size=64, compute_type="int8"):
         self.audio_file = audio_file
         self.device = device
@@ -23,6 +23,8 @@ class AudioProcessor:
         )
         self.diarize_model = whisperx.DiarizationPipeline(
             use_auth_token="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",
+            # device seçeneğinde mps, cuda, cpu olarak düzenlenebilir.
+            # Cihaza uygun olan seçilmeli
             device=torch.device('cpu'),
             model_name="pyannote/speaker-diarization"
         )
