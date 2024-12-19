@@ -1,5 +1,5 @@
 import ray
-from AudioProcessor import AudioProcessor
+from Audio2Text import Audio2Text
 from ProducerWriter import ProducerWriter
 from ConsumerReader import ConsumerReader
 import time
@@ -12,7 +12,7 @@ def get_audio_files(directory):
 @ray.remote
 def process_audio_file(audio_file):
     print(f"Running on node: {ray.util.get_node_ip_address()}")
-    processor = AudioProcessor(audio_file)
+    processor = Audio2Text(audio_file)
     processor.load_models()
     return processor.process_audio()
  
