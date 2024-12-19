@@ -1,6 +1,6 @@
 import ray
 from AudioProcessor import AudioProcessor
-from OutputWriter import OutputWriter
+from ProducerWriter import ProducerWriter
 from KafkaConsumerReader import KafkaConsumerReader
 import time
 import os
@@ -33,8 +33,8 @@ def main():
     futures = [process_audio_file.remote(audio_file) for audio_file in audio_files]
     while len(futures):
         done_id, futures = ray.wait(futures)
-        outputWriter = OutputWriter()
-        outputWriter.write_output(ray.get(done_id[0])[0], ray.get(done_id[0])[1])
+        outputWriter = ProducerWriter()
+        outputWriter.produce_message(ray.get(done_id[0])[0], ray.get(done_id[0])[1])
  
 if __name__ == "__main__":
     main()
