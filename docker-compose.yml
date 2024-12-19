@@ -25,29 +25,6 @@ services:
       retries: 5
     networks:
       - kafka
-  
-  ollama:
-    image: ollama/ollama
-    container_name: ollama
-    ports:
-      - 11434:11434
-    volumes:
-      - ./data/ollama:/root/.ollama
-
-  app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    volumes:
-      - ./data:/app/data
-    depends_on:
-      kafka:
-        condition: service_healthy
-    environment:
-      - KAFKA_BROKER=kafka:9092
-    networks:
-      - kafka
-    command: python Main.py
 
 networks:
   kafka:
