@@ -9,7 +9,7 @@ import json
  
  
 # Prediction yapan LLM fonksiyonu
-def llm_service(message):
+def llm_service(message, key):
     load_dotenv(Path(".env")) # Groq API Key .env dosyasından yükleniyor.
     llm = ChatGroq(
         model="gemma2-9b-it",
@@ -33,8 +33,9 @@ def llm_service(message):
     # Markdown işaretlerini temizle, yeni satır karakterlerini kaldır
         content = content.replace('```json\n', '').replace('```', '').strip()  # Markdown işaretlerini kaldır
         content = content.replace("\n", "").strip()  # Satır sonu karakterlerini kaldır
-        json_object = json.loads(content)
         
+        json_object = json.loads(content)
+        json_object['key'] = key
         producer = LLMtoProducer()
         producer.produce_message(json_object)
 

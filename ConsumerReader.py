@@ -27,7 +27,10 @@ class ConsumerReader:
                 print(f"Received message")
                 
                 # Okunan mesaj llm servisine yollanıyor.
-                llm_service(message)
+                byte_key = msg.key()
+                string_key = byte_key.decode('utf-8')
+                print(type(string_key))
+                llm_service(message, string_key)
                 
         except KeyboardInterrupt:
             print("Stopped by user")
