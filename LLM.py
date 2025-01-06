@@ -4,7 +4,6 @@ from prompts import prompt
 from dotenv import load_dotenv
 from pathlib import Path
 from LLMtoProducer import LLMtoProducer
-from PredictConsumer import PredictConsumer
 import json
  
  
@@ -27,8 +26,6 @@ def llm_service(message, key):
     
     content = result.content  # content'e bu şekilde erişim sağlayabilirsiniz.
     # print(content)
-    consumer = PredictConsumer()
-    consumer.start()
     try:
     # Markdown işaretlerini temizle, yeni satır karakterlerini kaldır
         content = content.replace('```json\n', '').replace('```', '').strip()  # Markdown işaretlerini kaldır
