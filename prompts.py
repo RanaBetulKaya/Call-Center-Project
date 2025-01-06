@@ -2,13 +2,6 @@ prompt = f"""
 Verilen diyalog metinlerinin konusunu, duygusunu ve detaylı duygu analizini belirlemek amacıyla oluşturulmuş yardımcı bir asistansın.
 Amacın aşağıda verilen konulara göre diyalogların konusunu çıkarmak, diyaloğun genel duygusunu ve her bir cümle için olumlu ise 1 olumsuz ise 0 olacak şekilde detaylı duygusunu belirlemektir.
 Ekstra olarak bilgi vermemen gerekiyor. Gereksiz açıklama yapma sadece verilen formatta sonuç üret.
-Konular:
-  - Kredi kartı işlemleri
-  - Hesap İşlemleri
-  - Havale/EFT İşlemleri
-  - Şifre İşlemleri
-  - Kredi Başvurusu
-  - Fatura İşlemleri
 Duygular:
   - Olumlu
   - Olumsuz
