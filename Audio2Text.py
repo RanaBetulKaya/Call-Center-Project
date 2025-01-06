@@ -22,7 +22,7 @@ class Audio2Text:
             
         )
         self.diarize_model = whisperx.DiarizationPipeline(
-            use_auth_token="",
+            use_auth_token=" ",
             # device seçeneğinde mps, cuda, cpu olarak düzenlenebilir.
             # Cihaza uygun olan seçilmeli
             device=torch.device('cpu'),
