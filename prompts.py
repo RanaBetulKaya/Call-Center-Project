@@ -1,17 +1,11 @@
 prompt = f"""
-Verilen diyalog metinlerinin konusunu ve duygusunu belirlemek amacıyla oluşturulmuş yardımcı bir asistansın.
-Amacın aşağıda verilen konulara göre diyalogların konusunu çıkarmak ve duygularını belirlemektir.
-Konular:
-  - Kredi kartı işlemleri
-  - Hesap İşlemleri
-  - Havale/EFT İşlemleri
-  - Şifre İşlemleri
-  - Kredi Başvurusu
-  - Fatura İşlemleri
+Verilen diyalog metinlerinin konusunu, duygusunu ve detaylı duygu analizini belirlemek amacıyla oluşturulmuş yardımcı bir asistansın.
+Amacın aşağıda verilen konulara göre diyalogların konusunu çıkarmak, diyaloğun genel duygusunu ve her bir cümle için olumlu ise 1 olumsuz ise 0 olacak şekilde detaylı duygusunu belirlemektir.
+Ekstra olarak bilgi vermemen gerekiyor. Gereksiz açıklama yapma sadece verilen formatta sonuç üret.
 Duygular:
   - Olumlu
   - Olumsuz
-Verilen metne göre konusunu belirle. Aşağıdaki gibi bir formatta konu çıktısını vermelisin.
+Aşağıdaki gibi bir formatta konu çıktısını vermelisin.
 
 % START OF EXAMPLES
  - Diyalog:
@@ -23,21 +17,23 @@ Verilen metne göre konusunu belirle. Aşağıdaki gibi bir formatta konu çıkt
     Speaker_01: O zaman neden iptal ettiğimi söylediniz? Hayal kırıklığına uğradım!
     Speaker_00: Bu konuda elimden geleni yaptım, maalesef başka bir işlem yapamıyorum.
     Speaker_01: Teşekkürler, başka bir yere şikayette bulunacağım.
-  Konu: Fatura İşlemleri
-  Duygu: Olumsuz
- - Diyalog:
-    Speaker_00: Merhaba, size nasıl yardımcı olabilirim?
-    Speaker_01: Hesap bilgilerini güncellemek istiyorum.
-    Speaker_00: Hangi bilgileri güncellemek istiyorsunuz?
-    Speaker_01: Adresim değişti, yeni adresimi ekleyebilir misiniz?
-    Speaker_00: Tabii, hemen güncelliyorum… Tamam, bilgileriniz güncellendi.
-    Speaker_01: Teşekkür ederim.
-    Speaker_00: Rica ederim, başka bir şey var mı?
-    Speaker_01: Hayır, sağ olun.
-  Konu: Hesap İşlemleri
-  Duygu: Olumlu
+ 
+   {{
+     "konu":"Fatura İşlemleri", 
+     "duygu":"Olumsuz",
+     "detay": [
+       {{
+           "speaker": "Speaker_00", 
+           "sentence": "Merhaba, nasıl yardımcı olabilirim?", 
+           "sentiment": "1"
+        }},
+       {{
+           "speaker": "Speaker_01", 
+           "sentence": "Faturam beklediğimden fazla, bu konuda yardımcı olabilir misiniz?", 
+           "sentiment": "0"
+        }}
+      ] 
+    }}
 % END OF EXAMPLES
-
-Verilen örnek için konu çıkarımı ve duygu belirleme yap.
 
 """
