@@ -7,3 +7,5 @@ numpy<2
 langchain
 langchain_groq
 python-dotenv
+streamlit
+plotly
