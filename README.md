@@ -48,10 +48,13 @@ In another terminal window:
 ```shell
 streamlit run dashboard.py
 ```
+<p align="center">
+  <img src="img/dashboard.png" width="450" title="hover text">
+</p>
 
 ## Pipeline Architecture
 <p align="center">
-  <img src="pipeline/pipeline.png" width="450" title="hover text">
+  <img src="img/pipeline.png" width="450" title="hover text">
 </p>
 
 ## NOTE
