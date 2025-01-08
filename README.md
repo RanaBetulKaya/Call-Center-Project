@@ -1,26 +1,58 @@
 # Call-Center-Project
 
-<h1>Adımlar</h1>
+## How to run the demo?
 
-<h4> 1.Adım </h4>
-<p> Groq API Key alarak .env dosyasına eklenmeli </p>
+### Step 1: Install modules and libraries in requirements.txt
+```shell
+pip install -r requirements.py
+```
 
-<h4> 2.Adım </h4>
-<p> requirements.txt dosyasındaki gereklilikleri indir. </p>
+### Step 2: Install ffmpeg system-wide
+  For Linux:
+   ```shell
+   sudo apt update
+   sudo apt install ffmpeg
+  ```
+   
+  For macOS:
+  ```shell
+  brew install ffmpeg
+  ```
 
-<h4> 3.Adım </h4>
-<p> ffmpeg modülünü system-wide olarak install et. </p>
+### Step 3: Create GroqAPI Key 
+Obtain the Groq API Key and add it to the `.env` file.
 
-<h4> 4.Adım </h4>
-<p> docker compose up --build -d ile kafkayı ayağa kaldır </p>
+### Step 4: Create HuggingFace Access Token
+Obtain the Access Token and add it to user_token variable in the `Audio2Text.py` file.
 
-<h4> 5.Adım </h4>
-<p> python Main.py ile projeyi başlat </p>
+### Step 5: Clone the Repository
+```shell
+git clone https://github.com/RanaBetulKaya/Call-Center-Project
+```
 
-<h2> Pipeline Architecture </h2>
+### Step 6: Add your audio files to data folder 
+There is already files in the data folder. But if you want to add your own, you should add to this data directory.
+
+### Step 7: Run docker compose file 
+```shell
+docker compose up --build -d
+```
+
+### Step 8: Run app with Python
+```shell
+python main.py
+```
+
+### Step 9: Run streamlit app
+In another terminal window:
+```shell
+streamlit run dashboard.py
+```
+
+## Pipeline Architecture
 <p align="center">
   <img src="pipeline/pipeline.png" width="450" title="hover text">
 </p>
 
-<h2> NOT </h2>
-<p> Audio2Text.py dosyasında zaten belirttim. Whisperx modelini cpu da çalıştırmak biraz uzun dürüyor. Sisteme göre değişiklik yapılabilir </p>
+## NOTE
+It may take some time to run the WhisperX model on the CPU in the 'Audio2Text.py' file. Depending on your system, you can use mps or cuda.
